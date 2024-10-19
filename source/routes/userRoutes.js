@@ -9,8 +9,6 @@ router.post('/', userController.createUser)
 // Protected
 router.use(authCheck)
 
-router.get('/', userController.getAllUsers)
-
 router.route('/:userId')
     .get(userController.getUser)
     .patch(userController.updateUser)

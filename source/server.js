@@ -1,27 +1,31 @@
+import setUpSocketHandlers from './socketHandlers/socket-handler.js'
+import requestLogger from './middlewares/requestLogger.js'
+import errorHandler from './middlewares/errorHandler.js'
+import rateLimiter from './middleware/rateLimite.jsr'
+
+import groupMessageRoutes from './routes/groupMessageRoutes.js'
+import groupMemberRoutes from './routes/groupMemberRoutes.js'
+import groupRoutes from './routes/groupRoutes.js'
+import authRoutes from './routes/authRoutes.js'
+import userRoutes from './routes/userRoutes.js'
+import root from './routes/root.js'
+
+import { initDatabase } from './config/initDatabase.js'
+import { corsOptions } from './config/allowedOrigins.js'
+
+import cookieParser from 'cookie-parser'
+import compression from 'compression'
+import { Server } from 'socket.io'
+import helmet from 'helmet'
+import csurf from 'csurf'
+import cors from 'cors'
+
+import { createServer } from 'http'
 import express from 'express'
-import os from 'os'
 import cluster from 'cluster'
 import path from 'path'
-import cors from 'cors'
-import cookieParser from 'cookie-parser'
-import helmet from 'helmet'
-import compression from 'compression'
-import errorHandler from './middlewares/errorHandler'
-import requestLogger from './middlewares/requestLogger'
-import validateJWT from './middlewares/validateJWT'
-import { createServer } from 'http'
-import { socketIo } from 'socket.io'
-import setUpSocketHandlers from './socketHandlers'
-import authMiddleware from './middleware/authCheck'
-import userRoutes from './routes/userRoutes'
-import groupMessageRoutes from './routes/groupMessageRoutes'
-import groupRoutes from './routes/groupRoutes'
-import groupMemberRoutes from './routes/groupMemberRoutes'
-import initDatabase from './initDatabase'
-import authRoutes from './routes/authRoutes'
-import rateLimiter from './middleware/rateLimiter'
-import root from './routes/root'
-import csurf from 'csurf'
+import os from 'os'
+
 
 if (cluster.isPrimary) {
     const numCPUSs = os.cpus().length
@@ -66,14 +70,13 @@ if (cluster.isPrimary) {
     console.log(`Platform: ${os.platform()}`)
     
     const app = express()
-    initDatabase()
-
-    app.use(rateLimiter())
-    
     const httpServer = createServer(app)
-    const io = socketIo(httpServer)
+    const io = new Server(httpServer)
+
+    initDatabase()
     
-    app.use(cors())
+    app.use(cors(corsOptions))
+    app.use(rateLimiter())
     app.use(helmet())
     app.use(compression())
     app.use(express.json())
@@ -81,21 +84,16 @@ if (cluster.isPrimary) {
     app.use(cookieParser())
     app.use(csurf({ cookie: true }))
     app.use(requestLogger())
-    app.use(validateJWT())
     
     app.use('/', express.static(path.join(__dirname, 'public')))
     app.use('/', root)
     app.use('/auth', authRoutes)
     app.use('/users', userRoutes)
     app.use('/groups', groupRoutes)
-    app.use('/groups/:groupId/group-members', groupMemberRoutes)
-    app.use('/groups/:groupId/group-messages', groupMessageRoutes)
+    app.use('/groups/:groupId/members', groupMemberRoutes)
+    app.use('/groups/:groupId/messages', groupMessageRoutes)
     
-    io.use(authMiddleware.socketAuth)
-    .on('connection', (socket) => {
-        console.log('a user connected', socket.decoded.userId)
-        setUpSocketHandlers(io, socket)
-    })
+    setUpSocketHandlers(io)
 
     app.all('*', (req, res) => {
         res.status(404)

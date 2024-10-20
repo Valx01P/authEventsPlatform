@@ -1,5 +1,5 @@
 import groupController from '../controllers/groupController.js'
-import authCheck from '../middleware/authCheck.js'
+import authCheck from '../middleware/auth.js'
 const router = express.Router()
 
 // Protected

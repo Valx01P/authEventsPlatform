@@ -1,5 +1,5 @@
 import groupMemberController from '../controllers/groupMemberController.js'
-import authCheck from '../middleware/authCheck.js'
+import authCheck from '../middleware/auth.js'
 const router = express.Router({ mergeParams: true })
 
 // Protected

@@ -1,6 +1,6 @@
 import express from 'express'
 import userController from '../controllers/userController.js'
-import authCheck from '../middleware/authCheck.js'
+import authCheck from '../middleware/auth.js'
 const router = express.Router()
 
 // Public

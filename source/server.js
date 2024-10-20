@@ -17,7 +17,6 @@ import cookieParser from 'cookie-parser'
 import compression from 'compression'
 import { Server } from 'socket.io'
 import helmet from 'helmet'
-import csurf from 'csurf'
 import cors from 'cors'
 
 import { createServer } from 'http'
@@ -82,7 +81,6 @@ if (cluster.isPrimary) {
     app.use(express.json())
     app.use(express.urlencoded({ extended: true }))
     app.use(cookieParser())
-    app.use(csurf({ cookie: true }))
     app.use(requestLogger())
     
     app.use('/', express.static(path.join(__dirname, 'public')))

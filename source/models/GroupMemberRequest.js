@@ -1,14 +1,8 @@
 
-const GroupMember = {
-    findById: async () => {},
-
+const GroupMemberRequest = {
     findAll: async () => {},
 
     create: async () => {},
-
-    update: async () => {},
-
-    updateRoles: async () => {},
 
     delete: async () => {}
 }

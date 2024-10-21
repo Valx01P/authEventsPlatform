@@ -1,8 +1,10 @@
 
 const User = {
-    create: async () => {},
+    findById: async () => {},
 
-    read: async () => {},
+    findByUsername: async () => {},
+
+    create: async () => {},
 
     update: async () => {},
 

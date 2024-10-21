@@ -10,7 +10,7 @@ router.route('/')
     .post(groupMemberController.createGroupMember)
 
 router.route('/join')
-    .post(groupMemberController.joinGroup)
+    .post(groupMemberController.joinGroupRequest)
 
 router.route('/:groupMemberId')
     .get(groupMemberController.getGroupMember)

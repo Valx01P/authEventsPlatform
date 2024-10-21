@@ -6,6 +6,7 @@ import rateLimiter from './middleware/rateLimite.jsr'
 import groupMessageRoutes from './routes/groupMessageRoutes.js'
 import groupMemberRoutes from './routes/groupMemberRoutes.js'
 import groupRoutes from './routes/groupRoutes.js'
+import uploadImage from './routes/uploadImage.js'
 import authRoutes from './routes/authRoutes.js'
 import userRoutes from './routes/userRoutes.js'
 import root from './routes/root.js'
@@ -13,9 +14,10 @@ import root from './routes/root.js'
 import { initDatabase } from './config/initDatabase.js'
 import { corsOptions } from './config/allowedOrigins.js'
 
-import cookieParser from 'cookie-parser'
+import session from 'express-session'
 import compression from 'compression'
 import { Server } from 'socket.io'
+import passport from 'passport'
 import helmet from 'helmet'
 import cors from 'cors'
 
@@ -75,19 +77,32 @@ if (cluster.isPrimary) {
     initDatabase()
     
     app.use(cors(corsOptions))
-    app.use(rateLimiter())
+    // app.use(rateLimiter())
     app.use(helmet())
     app.use(compression())
     app.use(express.json())
     app.use(express.urlencoded({ extended: true }))
-    app.use(cookieParser())
-    app.use(requestLogger())
+    // app.use(requestLogger())
+
+    app.use(session({
+        secret: process.env.SESSION_SECRET,
+        saveUninitialized: false,
+        resave: false,
+        cookie: {
+            secure: process.env.NODE_ENV === 'production',
+            maxAge: 7 * 24 * 60 * 1000
+        }
+    }))
+
+    app.use(passport.initialize())
+    app.use(passport.session())
     
     app.use('/', express.static(path.join(__dirname, 'public')))
     app.use('/', root)
     app.use('/auth', authRoutes)
     app.use('/users', userRoutes)
     app.use('/groups', groupRoutes)
+    app.use('/upload', uploadImage)
     app.use('/groups/:groupId/members', groupMemberRoutes)
     app.use('/groups/:groupId/messages', groupMessageRoutes)
     

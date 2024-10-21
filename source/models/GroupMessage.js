@@ -1,7 +1,7 @@
 
 
 const GroupMessage = {
-    readAll: async () => {}
+    findAll: async () => {}
 }
 
 export default GroupMessage

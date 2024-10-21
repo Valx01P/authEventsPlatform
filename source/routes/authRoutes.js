@@ -1,16 +1,26 @@
-import authController from '../controllers/authController.js'
+import express from 'express'
+import { login, signup, logout } from '../controllers/authController.js'
+import passport from 'passport'
+import { isAuthenticated } from '../middlewares/auth.js'
+
 const router = express.Router()
 
-// Public
+router.post('/login', login)
+router.post('/signup', signup)
+router.get('/logout', logout)
+router.get('/github', 
+    passport.authenticate('github', { scope: ['user:email'] })
+)
 
-router.route('/login')
-    .post(authController.login)
-
-router.refresh('/refresh')
-    .post(authController.refresh)
-
-router.logout('/logout')
-    .post(authController.logout)
-
+router.get('/check', isAuthenticated, (req, res) => {
+    res.json({ user: req.user })
+})
+  
+router.get('/github/callback', 
+    passport.authenticate('github', { 
+        failureRedirect: 'http://localhost:5173/',
+        successRedirect: 'http://localhost:5173/dash'
+    }),
+)
 
 export default router

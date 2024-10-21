@@ -1,3 +1,5 @@
+import GroupMember from '../models/groupMemberModel.js'
+import GroupMemberRequest from '../models/groupMemberRequestModel.js'
 
 const groupMemberController = {
     getAllGroupMembers: (req, res) => {
@@ -6,7 +8,7 @@ const groupMemberController = {
     createGroupMember: (req, res) => {
         // Create a group member
     },
-    joinGroup: (req, res) => {
+    joinGroupRequest: (req, res) => {
         // Join a group
     },
     getGroupMember: (req, res) => {

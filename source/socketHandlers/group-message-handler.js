@@ -3,6 +3,9 @@ const groupMessageHandler = (io, socket) => {
     //      do something
     //      io.emit('event', data)
     // })
+    socket.on('group-message', (data) => {
+        io.to(data.groupId).emit('group-message', data)
+    })
 
 }
 

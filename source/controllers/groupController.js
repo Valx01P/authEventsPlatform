@@ -1,3 +1,4 @@
+import Group from '../models/groupModel.js'
 
 const groupController = {
     getAllGroups: (req, res) => {

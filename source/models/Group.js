@@ -1,10 +1,12 @@
 
 const Group = {
-    readAll: async () => {},
+    findById: async () => {},
+
+    findAll: async () => {},
 
     create: async () => {},
 
-    read: async () => {},
+    findByUserId: async () => {},
 
     update: async () => {},
 

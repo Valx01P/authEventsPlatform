@@ -2,7 +2,7 @@ import groupMessageHandler from './group-message-handler.js'
 
 
 const setUpSocketHandlers = (io) => {
-    io.on('connection', (sokcet) => {
+    io.on('connection', (socket) => {
         console.log('A user connected')
 
         groupMessageHandler(io, socket)

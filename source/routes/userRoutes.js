@@ -3,10 +3,6 @@ import userController from '../controllers/userController.js'
 import authCheck from '../middleware/auth.js'
 const router = express.Router()
 
-// Public
-router.post('/', userController.createUser)
-
-// Protected
 router.use(authCheck)
 
 router.route('/:userId')

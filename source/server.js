@@ -6,7 +6,7 @@ import rateLimiter from './middleware/rateLimite.jsr'
 import groupMessageRoutes from './routes/groupMessageRoutes.js'
 import groupMemberRoutes from './routes/groupMemberRoutes.js'
 import groupRoutes from './routes/groupRoutes.js'
-import uploadImage from './routes/uploadImage.js'
+import imageRoutes from './routes/imageRoutes.js'
 import authRoutes from './routes/authRoutes.js'
 import userRoutes from './routes/userRoutes.js'
 import root from './routes/root.js'
@@ -75,7 +75,7 @@ app.use('/', root)
 app.use('/auth', authRoutes)
 app.use('/users', userRoutes)
 app.use('/groups', groupRoutes)
-app.use('/upload', uploadImage)
+app.use('/groups/:groupId', imageRoutes)
 app.use('/groups/:groupId/members', groupMemberRoutes)
 app.use('/groups/:groupId/messages', groupMessageRoutes)
 

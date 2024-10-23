@@ -1,9 +1,9 @@
 import groupMemberController from '../controllers/groupMemberController.js'
-import authCheck from '../middleware/auth.js'
+import { isAuthenticated } from '../middleware/auth.js'
 const router = express.Router({ mergeParams: true })
 
 // Protected
-router.use(authCheck)
+router.use(isAuthenticated)
 
 router.route('/')
     .get(groupMemberController.getAllGroupMembers)
@@ -12,14 +12,14 @@ router.route('/')
 router.route('/join')
     .post(groupMemberController.joinGroupRequest)
 
-router.route('/:groupMemberId')
+router.route('/:id')
     .get(groupMemberController.getGroupMember)
     .patch(groupMemberController.updateGroupMember)
 
-router.route('/:groupMemberId/roles')
+router.route('/:id/roles')
     .patch(groupMemberController.updateRoles)
 
-router.route('/:groupMemberId/leave')
+router.route('/:id/leave')
     .post(groupMemberController.leaveGroup)
 
 

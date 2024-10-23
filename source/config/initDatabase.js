@@ -7,6 +7,7 @@ export const initDB = async () => {
         await pool.query(createGroupMemberTableQuery)
         await pool.query(createGroupMemberRequestTableQuery)
         await pool.query(createGroupMessageTableQuery)
+        await pool.query(createImageTableQuery)
         console.log('Successfully initialized database')
     } catch (error) {
         console.log(error.message)
@@ -73,6 +74,20 @@ const createGroupMessageTableQuery = `
         created TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
         FOREIGN KEY (group_id) REFERENCES groups(id) ON DELETE CASCADE,
         FOREIGN KEY (sender_id) REFERENCES users(id) ON DELETE CASCADE
+    )
+`
+// add routes in groups for images for later, such as retrieving all group images
+const createImageTableQuery = `
+    CREATE TABLE IF NOT EXISTS images (
+        id SERIAL PRIMARY KEY,
+        user_id INT,
+        message_id INT,
+        group_id INT
+        image_url TEXT NOT NULL,
+        created TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+        FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+        FOREIGN KEY (message_id) REFERENCES group_messages(id) ON DELETE CASCADE
+        FOREIGN KEY (group_id) REFERENCES groups(id) ON DELETE CASCADE
     )
 `
 

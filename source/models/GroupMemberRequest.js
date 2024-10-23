@@ -9,4 +9,4 @@ const GroupMemberRequest = {
     delete: async () => {}
 }
 
-export default GroupMember
+export default GroupMemberRequest

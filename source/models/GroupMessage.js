@@ -1,7 +1,7 @@
 
 
 const GroupMessage = {
-    findById: async (id) => {},
+    findById: async () => {},
 
     findAll: async () => {}
 }

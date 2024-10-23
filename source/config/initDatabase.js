@@ -75,3 +75,5 @@ const createGroupMessageTableQuery = `
         FOREIGN KEY (sender_id) REFERENCES users(id) ON DELETE CASCADE
     )
 `
+
+initDB()

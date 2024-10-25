@@ -1,16 +1,16 @@
 import User from '../models/userModel.js'
 
 const userController = {
-    createUser: (req, res) => {
+    createUser: async (req, res, next) => {
         // Create user
     },
-    getUser: (req, res) => {
+    getUser: async (req, res, next) => {
         // Get user
     },
-    updateUser: (req, res) => {
+    updateUser: async (req, res, next) => {
         // Update user
     },
-    deleteUser: (req, res) => {
+    deleteUser: async (req, res, next) => {
         // Delete user
     }
 }

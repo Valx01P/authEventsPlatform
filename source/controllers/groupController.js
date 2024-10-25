@@ -1,19 +1,19 @@
 import Group from '../models/groupModel.js'
 
 const groupController = {
-    getAllGroups: (req, res) => {
+    getAllGroups: async (req, res, next) => {
         // Get all groups
     },
-    createGroup: (req, res) => {
+    createGroup: async (req, res, next) => {
         // Create group
     },
-    getGroup: (req, res) => {     
+    getGroup: async (req, res, next) => {     
         // Get group
     },
-    updateGroup: (req, res) => {
+    updateGroup: async (req, res, next) => {
         // Update group
     },
-    deleteGroup: (req, res) => {
+    deleteGroup: async (req, res, next) => {
         // Delete group
     }
 }

@@ -2,25 +2,25 @@ import GroupMember from '../models/groupMemberModel.js'
 import GroupMemberRequest from '../models/groupMemberRequestModel.js'
 
 const groupMemberController = {
-    getAllGroupMembers: (req, res) => {
+    getAllGroupMembers: async (req, res, next) => {
         // Get all group members
     },
-    createGroupMember: (req, res) => {
+    createGroupMember: async (req, res, next) => {
         // Create a group member
     },
-    joinGroupRequest: (req, res) => {
+    joinGroupRequest: async (req, res, next) => {
         // Join a group
     },
-    getGroupMember: (req, res) => {
+    getGroupMember: async (req, res, next) => {
         // Get a group member
     },
-    updateGroupMember: (req, res) => {
+    updateGroupMember: async (req, res, next) => {
         // Update a group member
     },
-    updateRoles: (req, res) => {
+    updateRoles: async (req, res, next) => {
         // Update roles
     },
-    leaveGroup: (req, res) => {
+    leaveGroup: async (req, res, next) => {
         // Leave a group
     }
 

@@ -19,7 +19,7 @@ export const login = (req, res, next) => {
   })(req, res, next)
 }
 
-export const signup = async (req, res) => {
+export const signup = async (req, res, next) => {
   try {
     const { username, password, email, display_name } = req.body
     if (!username || !password || !email || !display_name) {
@@ -42,7 +42,7 @@ export const signup = async (req, res) => {
   }
 }
 
-export const logout = (req, res) => {
+export const logout = (req, res, next) => {
   req.logout((err) => {
     if (err) {
       return res.status(500).json({ message: 'Error logging out', error: err })

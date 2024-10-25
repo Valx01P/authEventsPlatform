@@ -1,9 +1,7 @@
 import User from '../models/userModel.js'
+import bcrypt from 'bcrypt'
 
 const userController = {
-    createUser: async (req, res, next) => {
-        // Create user
-    },
     getUser: async (req, res, next) => {
         // Get user
     },

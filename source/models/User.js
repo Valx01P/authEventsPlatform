@@ -27,6 +27,7 @@ const User = {
             'UPDATE users SET username = COALESCE($1, username), password = COALESCE($2, password), email = COALESCE($3, email), display_name = COALESCE($4, display_name), avatar_url = COALESCE($5, avatar_url), description = COALESCE($6, description) WHERE id = $7 OR github_id = $8 RETURNING *',
             [username, password, email, display_name, avatar_url, description, id, github_id]
         )
+        return result.rows[0]
     },
 
     delete: async (id=null, github_id=null) => {
